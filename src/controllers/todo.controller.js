@@ -15,7 +15,7 @@ export async function createTodo(req, res, next) {
     
     const todo = await Todo.create({
       title,
-      completed,
+      completed : completed ?? false,
       priority,
       tags,
       dueDate,
@@ -126,7 +126,7 @@ export async function toggleTodo(req, res, next) {
     const {id} = req.params
     const record = await Todo.findById(id)
     if (!record){
-      return res.status(404).json({error : {message : "Todo not Found"}})
+      return res.status(404).json({error : {message : "Todo not found"}})
 
     }
     record.completed = !record.completed
@@ -150,7 +150,7 @@ export async function deleteTodo(req, res, next) {
     
     const record = await Todo.findByIdAndDelete(id)
     if (!record){
-      return res.status(404).json({error : {message : "Todo not Found"}})
+      return res.status(404).json({error : {message : "Todo not found"}})
     }
     return res.sendStatus(204)
   } catch (error) {
