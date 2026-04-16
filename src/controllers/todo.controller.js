@@ -23,7 +23,7 @@ export async function createTodo(req, res, next) {
     
     res.status(201).json(todo)
   } catch (error) {
-  res.status(500).json({ message: error.message });
+    next(error)
   }
 }
 
@@ -85,9 +85,9 @@ export async function getTodo(req, res, next) {
     const record = await Todo.findById(id)
 
     if (!record){
-      return res.status(404).json({error:{message : "Record not found"}})
+      return res.status(404).json({error:{message : "Todo not found"}})
     }
-    return res.status(200).json({record})
+    res.json(record)
   } catch (error) {
     next(error);
   }
@@ -107,9 +107,9 @@ export async function updateTodo(req, res, next) {
     })
     
     if (!todo){
-      return res.status(404).json({error : {message : "Value not found"}})
+      return res.status(404).json({error : {message : "Todo not found"}})
     } 
-    return res.status(200).json({todo})    
+    res.json(todo)    
   } catch (error) {
     next(error);
   }
@@ -126,7 +126,7 @@ export async function toggleTodo(req, res, next) {
     const {id} = req.params
     const record = await Todo.findById(id)
     if (!record){
-      return res.status(404).json({error : {message : "Not Found"}})
+      return res.status(404).json({error : {message : "Todo not Found"}})
 
     }
     record.completed = !record.completed
@@ -150,9 +150,9 @@ export async function deleteTodo(req, res, next) {
     
     const record = await Todo.findByIdAndDelete(id)
     if (!record){
-      return res.status(404).json({error : {message : "Record Not Found"}})
+      return res.status(404).json({error : {message : "Todo not Found"}})
     }
-    return res.status(204).send()
+    return res.sendStatus(204)
   } catch (error) {
     next(error);
   }
