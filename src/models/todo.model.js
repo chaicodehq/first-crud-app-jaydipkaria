@@ -41,7 +41,7 @@ const todoSchema = new mongoose.Schema(
         validator : function (val){
           return val.length <= 10
         },
-        message : "Tags connot excess 10 items"
+        message : "Tags cannot exceed 10 items"
       }
 
     },
@@ -59,4 +59,4 @@ const todoSchema = new mongoose.Schema(
 // TODO: Add index
 todoSchema.index({completed: 1, createdAt : -1})
 // TODO: Create and export the Todo model
-const Todo = mongoose.model("Todo", todoSchema)
+export const Todo = mongoose.model("Todo", todoSchema)
