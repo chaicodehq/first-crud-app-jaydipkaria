@@ -51,17 +51,12 @@ const todoSchema = new mongoose.Schema(
   },
   {
     // Schema options here
-    timestamps:{
-      createdAt : 'created_on',
-      updatedAt : 'updated_on'
-    },
+    timestamps: true,
     
   }
 );
 
 // TODO: Add index
-todoSchema.index({completed: 1, created_on : -1})
+todoSchema.index({completed: 1, createdAt : -1})
 // TODO: Create and export the Todo model
 const Todo = mongoose.model("Todo", todoSchema)
-
-export default Todo;
