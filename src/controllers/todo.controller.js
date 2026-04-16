@@ -56,7 +56,7 @@ export async function listTodos(req, res, next) {
         }
       }
         const total = await Todo.countDocuments(filter)
-        const data = await Todo.find(filter).skip(skip).limit(limit)
+        const data = await Todo.find(filter).sort({createdAt : -1}).skip(skip).limit(limit)
 
         res.json({
           data,
