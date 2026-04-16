@@ -1,4 +1,4 @@
-import express from "express";
+import express, { json } from "express";
 import todoRoutes from "./routes/todo.routes.js";
 import { errorHandler } from "./middlewares/error.middleware.js";
 import { notFound } from "./middlewares/notFound.middleware.js";
@@ -16,4 +16,14 @@ import { notFound } from "./middlewares/notFound.middleware.js";
  */
 export function createApp() {
   // Your code here
+  const app = express()
+  app.use(json())
+  app.get('/health', (req,res)=>{
+    res.json({ok : true})
+  })
+  app.use('/api/todos', todoRoutes)
+  app.use(notFound)
+  app.use(errorHandler)
+
+  return app
 }
