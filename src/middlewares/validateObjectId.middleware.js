@@ -13,7 +13,7 @@ export function validateObjectId(req, res, next) {
   const isValid = mongoose.Types.ObjectId.isValid(id)
 
   if (!isValid){
-    return res.status(400).json({error : {message : "Invalid Id"}})
+    return res.status(400).json({error : {message : "Invalid id"}})
   }
 
   next()
